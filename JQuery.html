@@ -1,0 +1,233 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        console.log("Hello world");
+        $("button").click(function () {
+          $("#p1").fadeOut(2000);
+        });
+        $("p").click(function () {
+          console.log("U clicked me");
+          // $(this).fadeOut(2000);
+          // $(this).fadeIn();
+          $(this).hide();
+        });
+
+        //Using mouse enter and mouse leave
+        $("P").on({
+          mouseenter: function () {
+            $(this).css("background-color", "yellow");
+          },
+          mouseleave: function () {
+            $(this).css("background-color", "white");
+          },
+        });
+
+        //Using FadeIn feature
+        $("#btn1").click(function () {
+          $("#p1").fadeIn(2000);
+        });
+
+        //Slide toggling feature
+        $("#sldDownbtn").click(function () {
+          console.log("Inide slider");
+          $("#dynbtn").slideToggle(3000);
+        });
+
+        //Animate method intro
+
+        /*Is it possible to manipulate ALL CSS properties with the animate() method?
+
+        Yes, almost! However, there is one important thing to remember: all property names must be camel-cased when used with the animate() method: You will need to write paddingLeft instead of padding-left, marginRight instead of margin-right, and so on.
+
+        Also, color animation is not included in the core jQuery library.
+        If you want to animate color, you need to download the Color Animations plugin from jQuery.com.*/
+
+        //Animate function
+        $("#animateRect").click(function () {
+          console.log("Inside animater");
+          $("#rect").animate({ left: "250", top: "250" });
+        });
+
+
+        //Using += directly to add value to the height and width
+        $("#rect").mouseenter(function () {
+          $(this).animate({
+            padding: "100",
+            height: "+=200",
+            width: "+=200",
+            opacity: "0.125",
+          });
+        });
+
+
+        $("#rect").mouseleave(function () {
+          $(this).animate({
+            padding: "0",
+            height: "100",
+            width: "100",
+            left: "0",
+            top: "0",
+            opacity: "0.90",
+          });
+        });
+
+        //Using toggle directly in height property of animate function
+        $("#animateredRect").click(function(){
+            // $("#redRect").animate({
+            //     height:'toggle'
+            // });
+
+            var rect=$("#rect");
+            var redRect=$("#redRect");
+
+            rect.animate({
+                height:'toggle'
+            },2000);
+
+            redRect.animate({
+                width:'toggle'
+            });
+
+        });
+
+        //Animate function
+        $("#animateredRect2").click(function(){
+
+            $("#redRect2").animate({
+                height:'toggle'
+            },5000);
+
+        });
+
+
+        //Stopping an animation in the middle
+        $("#stopBtn").click(function(){
+
+            $("#redRect2").stop();
+
+        });
+
+
+        //Chaining multiple functions together
+        $("#greenRect").click(function(){
+            $(this).css("background","yellow").slideUp(2000).slideDown(3000);
+            //$(this).css("background","#ff0000");
+        });
+
+
+        /*Three simple, but useful, jQuery methods for DOM manipulation are:
+
+            text() - Sets or returns the text content of selected elements
+            html() - Sets or returns the content of selected elements (including HTML markup)
+            val() - Sets or returns the value of form fields*/
+
+        //Get attribute property using attr function
+        $("#attrdemo").click(function(){
+            var greenRectHeight=$("#greenRect").attr("style");
+            console.log("Greenrect height ",greenRectHeight);
+            alert("Height of green rectangle is "+greenRectHeight);
+        });
+
+        var aRectanglesStyle="";
+
+        $("div").dblclick(function(){
+            console.log("aRectanglesStyle",aRectanglesStyle);
+            aRectanglesStyle=$(this).attr("style");
+            console.log("aRectanglesStyle",aRectanglesStyle);
+        });
+
+
+        //Setting a atrribute using jquery
+        $("div").mouseenter(function(){
+            if(aRectanglesStyle===""){
+                console.log("Empty property should not be assigned");
+            }
+            else{
+                console.log("Inside on mouse enter function of div");
+                $(this).attr("style",aRectanglesStyle);
+                aRectanglesStyle="";
+                console.log("aRectanglesStyle value reset",aRectanglesStyle);
+            }
+        });
+
+        //For adding such as using append ,prepend, after , before in jQuery use this page for reference
+        // https://www.w3schools.com/jquery/jquery_dom_add.asp
+
+        //For Removing elements you can use this one....
+        // https://www.w3schools.com/jquery/jquery_dom_remove.asp
+
+
+      });
+    </script>
+  </head>
+  <body>
+    <p id="p1" style="width: fit-content">This is paragraph1</p>
+
+    <p>Click me for effect</p>
+
+    <button>Button</button>
+    <button id="btn1">FadeIn</button>
+
+    <button id="sldDownbtn">Click me to slide Down a button</button>
+    <button height="200" width="200" id="dynbtn">
+      Dynamically generated button
+    </button>
+    <button id="animateRect">Click to animate the rectangle</button>
+    <button id="animateredRect">Toggle red React</button>
+
+    <!-- a rectangle -->
+    <div
+      id="rect"
+      style="
+        background: #98bf21;
+        height: 100px;
+        width: 100px;
+        position: relative;
+      "
+    ></div>
+
+    <!-- a red rectangle -->
+    <div
+      id="redRect"
+      style="
+        background: #e74444;
+        height: 100px;
+        width: 100px;
+        position: relative;
+      "
+    ></div>
+
+    <br/>
+    <br/>
+    <button id="stopBtn">stop animation</button>
+    <button id="animateredRect2">Animate red rect 2</button>
+    <div
+      id="redRect2"
+      style="
+        background: #368d20;
+        height: 100px;
+        width: 100px;
+        position: relative;
+      "
+    ></div>
+
+
+    <!-- A Green rectangle -->
+    <!-- a red rectangle -->
+    <br/>
+    <p>A new green rectangle</p>
+    <div
+    id="greenRect"
+    style="
+    background: #cddb09;
+    height: 100px;
+    width: 100px;
+    position: relative;
+    "
+    ></div>
+    <br />
+    <button id="attrdemo">Height of greenRect</button>
+  </body>
+</html>
